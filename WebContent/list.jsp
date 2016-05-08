@@ -1,11 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
+<%@ page import="com.board.beans.Board" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="style.css"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css" href="style.css"/>
+	<title>웹 게시판 만들기 공부</title>
+</head>
+
 <%
 	request.setCharacterEncoding("UTF-8");
 
@@ -28,10 +34,32 @@
 		String sql = "select * from testdb.NOTICE order by idx desc";
 		
 		rs = stmt.executeQuery(sql);
+		
+		ArrayList<Board> articleList = new ArrayList<Board>();
+		
+		while(rs.next()) {
+			Board article = new Board();
+			article.setIdx(rs.getInt("idx"));
+			article.setTitle(rs.getString("title"));
+			article.setUserid(rs.getString("user_id"));
+			article.setRegdttm(rs.getString("reg_dttm"));
+			article.setCount(rs.getInt("count"));
 
+			articleList.add(article);
+		}
+		
+		request.setAttribute("articleList", articleList); // 뷰에 리스트 포워드
+		
+		stmt.close();
+		conn.close();
+		
+	} catch (Exception e) {
+		out.println("MySQL DB connetion Error. <hr>");
+		out.println(e.getMessage());
+		e.printStackTrace();
+	}
 %>
-<title>웹 게시판 만들기 공부</title>
-</head>
+
 <body>
 	<h1>게시글 목록</h1>
 	
@@ -48,26 +76,16 @@
 			<th>조회수</th>
 		</tr>
 		
-<%
-	while(rs.next()) {
-		out.print("<tr>");
-		out.print("<td>" + rs.getString("idx") + "</td>");
-		out.print("<td> <a href='content.jsp?idx=" + rs.getString("idx") + "'>" + rs.getString("title") + "</a></td>");
-		out.print("<td>" + rs.getString(3) + "</td>");
-		out.print("<td>" + rs.getString(4) + "</td>");
-		out.print("<td>" + rs.getString(6) + "</td>");
-		out.print("</tr>");
-	}
-%>
+		<c:forEach items="${articleList}" var="article">
+			<tr>
+				<td>${article.idx}</td>
+				<td><a href="content.jsp?idx=${article.idx}">${article.title}</a></td>
+				<td>${article.userid }</td>
+				<td>${article.regdttm}</td>
+				<td>${article.count}</td>
+			</tr>
+		</c:forEach>
+		
 	</table>
-<%
-		stmt.close();
-		conn.close();
-	} catch (Exception e) {
-		out.println("MySQL DB connetion Error. <hr>");
-		out.println(e.getMessage());
-		e.printStackTrace();
-	}
-%>
 </body>
 </html>
