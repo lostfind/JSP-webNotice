@@ -81,10 +81,6 @@ public class ControllerAction extends HttpServlet {
 			throw new ServletException(e);
 		}
 		
-		if (view == null) {
-			return;
-		}
-		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
 		dispatcher.forward(request, response);
 	}

@@ -9,6 +9,6 @@
 <title>웹 게시판 만들기 공부</title>
 </head>
 <script>
-	location.href="list.jsp";
+	location.href="list.do";
 </script>
 </html>

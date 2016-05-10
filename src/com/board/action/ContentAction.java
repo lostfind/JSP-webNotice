@@ -9,18 +9,20 @@ import com.board.beans.Board;
 import com.board.controller.CommandAction;
 import com.board.dao.BoardDao;
 
-public class ListAction implements CommandAction {
+public class ContentAction implements CommandAction {
 
 	@Override
 	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-
-		request.setCharacterEncoding("UTF-8");
-
-		ArrayList<Board> articleList = BoardDao.getInstance().getArticleList();
+		// TODO Auto-generated method stub
 		
-		request.setAttribute("articleList", articleList); // 뷰에 리스트 포워드
-			
-		return "list.jsp";
+		request.setCharacterEncoding("UTF-8");
+		
+		String idx = request.getParameter("idx");
+		
+		ArrayList<Board> contentList = BoardDao.getInstance().getContent(idx);
+		
+		request.setAttribute("contentList", contentList);
+		
+		return "content.jsp";
 	}
-
 }
