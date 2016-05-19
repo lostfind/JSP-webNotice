@@ -73,4 +73,19 @@ public class BoardDao extends CommonDao {
 		
 		return contentList;
 	}
+	
+	public void insertContent(String title, String user_id, String content) throws SQLException {
+
+		String sql = "INSERT INTO testdb.NOTICE"
+					+ "(TITLE, USER_ID, CONTENT, REG_DTTM) " 
+					+ "VALUES ('" + title + "', '" + user_id + "', '" + content + "', sysdate());";
+
+		openConnection().executeUpdate(sql);
+
+		System.out.println("입력쿼리실행 : " + sql);
+
+		closeConnection();
+
+	}
+	
 }

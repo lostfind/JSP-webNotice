@@ -10,7 +10,7 @@
 <body>
 	<h3>게시글 작성</h3>
 	
-	<form action="insert.jsp" method="post" onsubmit="return formCheck();">
+	<form action="insert.do" method="post" onsubmit="return formCheck();">
 		제목 : <input type="text" name="title" />&nbsp;&nbsp;&nbsp;작성자 : <input type="text" name="user_id" />
 		<br/>
 		내용 : <textarea rows="10" cols="20" name="content"></textarea>
