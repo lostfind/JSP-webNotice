@@ -7,8 +7,6 @@ import java.sql.Statement;
 
 public class CommonDao {
 
-//	request.setCharacterEncoding("UTF-8");
-
 	//공통사용 DB정보 변수
 	private final String driverName = "com.mysql.jdbc.Driver";
 	private final String URL = "jdbc:mysql://localhost:3307/testdb";

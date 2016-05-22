@@ -13,11 +13,12 @@ public class BoardDao extends CommonDao {
 		return _instance;
 	}
 	
+	
 	public ArrayList<Board> getArticleList() throws SQLException {
 		ResultSet rs = null;
 		
 		//게시물 목록 조회 쿼리
-		String sql = "select * from testdb.NOTICE order by idx desc";
+		String sql = "select * from testdb.NOTICE order by idx desc;";
 		
 		//openConnection()으로 연결 후 쿼리 실행 결과 반환
 		rs = openConnection().executeQuery(sql);
@@ -45,11 +46,12 @@ public class BoardDao extends CommonDao {
 		return articleList;
 	}
 	
+	
 	public ArrayList<Board> getContent(String idx) throws SQLException {
 
 		ResultSet rs = null;
 		
-		String sql = "select * from testdb.NOTICE where idx = " + idx;
+		String sql = "select * from testdb.NOTICE where idx = " + idx + ";";
 		
 		rs = openConnection().executeQuery(sql);
 		System.out.println("쿼리실행 : " + sql);
@@ -74,6 +76,7 @@ public class BoardDao extends CommonDao {
 		return contentList;
 	}
 	
+	
 	public void insertContent(String title, String user_id, String content) throws SQLException {
 
 		String sql = "INSERT INTO testdb.NOTICE"
@@ -88,4 +91,15 @@ public class BoardDao extends CommonDao {
 
 	}
 	
+	
+	public void deleteContent(String idx) throws SQLException {
+
+		String sql = "delete from testdb.NOTICE where idx = " + idx + ";";
+		
+		openConnection().executeUpdate(sql);
+		
+		System.out.println("삭제쿼리실행 : " + sql);
+		
+		closeConnection();
+	}
 }

@@ -4,15 +4,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="stylesheet" type="text/css" href="style.css"/>
+<link rel="stylesheet" type="text/css" href="css/style.css"/>
 <title>웹 게시판 만들기 공부</title>
 </head>
 
 <body>
 	<h1>게시글 조회</h1>
-	
+	<c:forEach items="${contentList}" var="content">
 	<table border=1>
-		<c:forEach items="${contentList}" var="content">
+		
 		<tr>
 			<th>번호</th>
 			<td>${content.idx}</td>
@@ -31,11 +31,9 @@
 			<th colspan="2">내용</th>
 			<td colspan="6">${content.content}</td>
 		</tr>
-		</c:forEach>
 	</table>
-<%--
-	<a href="delete.jsp?idx=${content.idx}>">게시글삭제</a> 
---%>
+	<a href="delete.do?idx=${content.idx}">게시글삭제</a> 
 	<a href="list.do">목록으로</a>
+	</c:forEach>
 </body>
 </html>
