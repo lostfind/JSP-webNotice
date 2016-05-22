@@ -10,16 +10,14 @@
 
 <body>
 	<h1>게시글 조회</h1>
-	<c:forEach items="${contentList}" var="content">
 	<table border=1>
-		
 		<tr>
 			<th>번호</th>
 			<td>${content.idx}</td>
 			<th>작성자</th>
-			<td>${content.userid}</td>
+			<td>${content.user_id}</td>
 			<th>작성일시</th>
-			<td>${content.regdttm}</td>
+			<td>${content.reg_dttm}</td>
 			<th>조회수</th>
 			<td>${content.count}</td>
 		</tr>
@@ -34,6 +32,5 @@
 	</table>
 	<a href="delete.do?idx=${content.idx}">게시글삭제</a> 
 	<a href="list.do">목록으로</a>
-	</c:forEach>
 </body>
 </html>

@@ -17,20 +17,20 @@ public class Board {
 		this.title = title;
 	}
 	
-	public String getUserid() {
-		return userid;
+	public String getUser_id() {
+		return user_id;
 	}
 	
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setUser_id(String userid) {
+		this.user_id = userid;
 	}
 	
-	public String getRegdttm() {
-		return regdttm;
+	public String getReg_dttm() {
+		return reg_dttm;
 	}
 	
-	public void setRegdttm(String regdttm) {
-		this.regdttm = regdttm;
+	public void setReg_dttm(String regdttm) {
+		this.reg_dttm = regdttm;
 	}
 	
 	public int getCount() {
@@ -50,10 +50,10 @@ public class Board {
 	}
 	
 	private int idx;
-	private String title;
-	private String userid;
-	private String regdttm;
-	private int count;
+	private String title; 
+	private String user_id;
+	private String reg_dttm;
 	private String content;
+	private int count;
 	
 }

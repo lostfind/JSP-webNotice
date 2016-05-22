@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"  "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Board">
+	<typeAlias alias="str" type="java.lang.String" />
+	<typeAlias alias="int" type="java.lang.Integer" />
+	<typeAlias alias="board" type="com.board.beans.Board" />
+	
+	<select id="getArticleList" resultClass="board">
+		SELECT * FROM testdb.NOTICE ORDER BY IDX DESC;
+	</select>
+	
+	<select id="getContent" parameterClass="str" resultClass="board">
+		SELECT * FROM testdb.NOTICE WHERE IDX = #idx#;
+	</select>
+	
+	<insert id="insertContent" parameterClass="board">
+		INSERT INTO testdb.NOTICE
+		(
+			  TITLE
+			, USER_ID
+			, CONTENT
+			, REG_DTTM
+		) VALUES (
+			  #title#
+			, #user_id#
+			, #content#
+			, sysdate()
+		);
+	</insert>
+	
+	<delete id="deleteContent" parameterClass="str">
+		DELETE FROM testdb.NOTICE
+		 WHERE IDX = #idx#;
+	</delete>
+	
+</sqlMap>

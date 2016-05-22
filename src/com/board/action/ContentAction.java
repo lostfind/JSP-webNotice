@@ -1,7 +1,5 @@
 package com.board.action;
 
-import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,15 +11,14 @@ public class ContentAction implements CommandAction {
 
 	@Override
 	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
-		// TODO Auto-generated method stub
 		
 		request.setCharacterEncoding("UTF-8");
 		
 		String idx = request.getParameter("idx");
 		
-		ArrayList<Board> contentList = BoardDao.getInstance().getContent(idx);
+		Board content = BoardDao.getInstance().getContent(idx);
 		
-		request.setAttribute("contentList", contentList);
+		request.setAttribute("content", content);
 		
 		return "content.jsp";
 	}

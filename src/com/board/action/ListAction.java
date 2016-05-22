@@ -22,5 +22,4 @@ public class ListAction implements CommandAction {
 			
 		return "list.jsp";
 	}
-
 }
