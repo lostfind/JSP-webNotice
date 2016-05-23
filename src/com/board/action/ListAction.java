@@ -16,9 +16,17 @@ public class ListAction implements CommandAction {
 
 		request.setCharacterEncoding("UTF-8");
 
-		ArrayList<Board> articleList = BoardDao.getInstance().getArticleList();
+		int page = 0;
+		
+		//page파라미터가 있는경우에만 넘김
+		if(request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		
+		ArrayList<Board> articleList = BoardDao.getInstance().getArticleList(page);
 		
 		request.setAttribute("articleList", articleList); // 뷰에 리스트 포워드
+		request.setAttribute("page", page);
 			
 		return "list.jsp";
 	}
