@@ -19,12 +19,9 @@ public class CountAction implements CommandAction {
 
 		Board article = BoardDao.getInstance().getContent(idx);
 		
-		System.out.println(regip + "비교" + article.getRegip());
-
 		if(!regip.equals(article.getRegip())) {
 			int count = article.getCount();
-			article.setCount(count++);
-			System.out.println("들어왔나?");
+			article.setCount(++count);
 			BoardDao.getInstance().setArticleCount(article);
 		}
 		
