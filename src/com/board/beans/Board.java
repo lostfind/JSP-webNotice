@@ -49,11 +49,20 @@ public class Board {
 		this.content = content;
 	}
 	
+	public String getRegip() {
+		return regip;
+	}
+
+	public void setRegip(String regip) {
+		this.regip = regip;
+	}
+
 	private int idx;
 	private String title; 
 	private String user_id;
 	private String reg_dttm;
 	private String content;
 	private int count;
+	private String regip;
 	
 }

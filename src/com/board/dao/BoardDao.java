@@ -35,19 +35,17 @@ public class BoardDao extends CommonDao {
 	}
 
 
-	public void insertContent(String title, String user_id, String content) throws SQLException {
-
-		Board article = new Board();
-
-		article.setTitle(title);
-		article.setUser_id(user_id);
-		article.setContent(content);
-		
+	public void insertContent(Board article) throws SQLException {
 		GetDB().insert("insertContent", article);
 	}
 
 
 	public void deleteContent(String idx) throws SQLException {
 		GetDB().delete("deleteContent", idx);
+	}
+
+
+	public void setArticleCount(Board article) throws SQLException {
+		GetDB().update("setArticleCount", article);
 	}
 }

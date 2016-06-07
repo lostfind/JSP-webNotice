@@ -19,12 +19,16 @@
 			  TITLE
 			, USER_ID
 			, CONTENT
+			, COUNT
 			, REG_DTTM
+			, REGIP
 		) VALUES (
 			  #title#
 			, #user_id#
 			, #content#
+			, #count#
 			, sysdate()
+			, #regip#
 		);
 	</insert>
 	
@@ -32,5 +36,11 @@
 		DELETE FROM testdb.NOTICE
 		 WHERE IDX = #idx#;
 	</delete>
+	
+	<update id="setArticleCount" parameterClass="board">
+		UPDATE testdb.NOTICE
+		   SET COUNT = #count#
+		 WHERE IDX = #idx#;
+	</update>
 	
 </sqlMap>

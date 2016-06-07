@@ -7,7 +7,7 @@ import com.board.beans.Board;
 import com.board.controller.CommandAction;
 import com.board.dao.BoardDao;
 
-public class ContentAction implements CommandAction {
+public class CountAction implements CommandAction {
 
 	@Override
 	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
@@ -15,11 +15,22 @@ public class ContentAction implements CommandAction {
 		request.setCharacterEncoding("UTF-8");
 		
 		String idx = request.getParameter("idx");
-		
+		String regip = request.getRemoteAddr();		//조회한 사용자의 IP
+
 		Board article = BoardDao.getInstance().getContent(idx);
 		
-		request.setAttribute("article", article);
+		System.out.println(regip + "비교" + article.getRegip());
+
+		if(!regip.equals(article.getRegip())) {
+			int count = article.getCount();
+			article.setCount(count++);
+			System.out.println("들어왔나?");
+			BoardDao.getInstance().setArticleCount(article);
+		}
 		
-		return "content.jsp";
+		request.setAttribute("url", "content.do?idx="+idx);
+		
+		return "redirect.jsp";
 	}
+
 }

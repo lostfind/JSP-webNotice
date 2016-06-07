@@ -29,7 +29,7 @@
 		<c:forEach items="${articleList}" var="article">
 			<tr>
 				<td>${article.idx}</td>
-				<td><a href="content.do?idx=${article.idx}">${article.title}</a></td>
+				<td><a href="count.do?idx=${article.idx}">${article.title}</a></td>
 				<td>${article.user_id }</td>
 				<td>${article.reg_dttm}</td>
 				<td>${article.count}</td>
