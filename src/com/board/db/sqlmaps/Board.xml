@@ -6,8 +6,14 @@
 	<typeAlias alias="board" type="com.board.beans.Board" />
 
 	<select id="getArticleList" resultClass="board">
-		SELECT * FROM testdb.NOTICE ORDER BY IDX DESC;
+		SELECT * FROM testdb.NOTICE A ORDER BY A.IDX DESC LIMIT 7 OFFSET #page#;
 	</select>
+
+
+	<select id="getPageTotal" parameterClass="int" resultClass="int">
+		SELECT CEIL(COUNT(*)/#pageCount#) FROM testdb.NOTICE;
+	</select>
+
 
 	<select id="getContent" parameterClass="str" resultClass="board">
 		SELECT * FROM testdb.NOTICE WHERE IDX = #idx#;

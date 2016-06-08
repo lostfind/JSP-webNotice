@@ -12,11 +12,11 @@
 
 <body>
 	<h1>게시글 목록</h1>
-	
+
 	<a href="write.jsp">
 		<button>작성</button>
 	</a>
-	
+
 	<table border=1>
 		<tr>
 			<th>번호</th>
@@ -25,7 +25,7 @@
 			<th>작성일시</th>
 			<th>조회수</th>
 		</tr>
-		
+
 		<c:forEach items="${articleList}" var="article">
 			<tr>
 				<td>${article.idx}</td>
@@ -35,23 +35,34 @@
 				<td>${article.count}</td>
 			</tr>
 		</c:forEach>
-		
+
 	</table>
-	
-	<c:if test="${page > 0}"> 
-		<a href="list.do?page=${page-5}">이전페이지</a> 
+
+	<c:if test="${page > 0}">
+		<a href="list.do?page=${page-1}">이전페이지</a>
 	</c:if>
 	<c:if test="${page == 0}">
-		<a href="#">이전페이지</a> 
+		<a href="#">이전페이지</a>
 	</c:if>
 
-	<fmt:parseNumber value="${page/5+1}" type="number"  integerOnly="True" /> 페이지
-	
-	<c:if test="${fn:length( articleList ) < 5}"> 
+	&nbsp;
+	<c:forEach begin="1" varStatus="i" end="${pageTotal}">
+		<c:if test="${page+1 == i.count}">
+			<b>
+				<a href="list.do?page=${i.index-1}">[${i.index}/${pageTotal}]</a>
+			</b>
+		</c:if>
+		<c:if test="${page+1 != i.count}">
+			<a href="list.do?page=${i.index-1}">[${i.index}/${pageTotal}]</a>
+		</c:if>
+	</c:forEach>
+	&nbsp;
+
+	<c:if test="${page+1 == pageTotal}">
 		<a href="#">다음페이지</a>
 	</c:if>
-	<c:if test="${fn:length( articleList) == 5 }">
-		<a href="list.do?page=${page+5}">다음페이지</a>
+	<c:if test="${page+1 != pageTotal}">
+		<a href="list.do?page=${page+1}">다음페이지</a>
 	</c:if>
 </body>
 </html>
