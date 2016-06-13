@@ -12,9 +12,20 @@
 		location.href="list.do";
 	</script>
 </c:if>
+
 <c:if test="${url != null}">
 	<script>
-		location.href="${url}";
+		$.ajax({
+			type:'post',
+			url:'${url}',
+			success:function(data) {
+				$('#content').html(data);
+			}
+		});
 	</script>
+
+	<div id="content">
+	</div>
+
 </c:if>
 </html>

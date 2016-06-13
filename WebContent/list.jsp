@@ -8,6 +8,49 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" type="text/css" href="css/style.css"/>
 	<title>웹 게시판 만들기 공부</title>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script>
+
+	<script type="text/javascript">
+		function openContent(idx) {
+			$('.mw_layer').addClass('open');
+
+			$.ajax({
+				type:'post',
+				url:'count.do',
+				data: ({idx:idx}),
+				success:function(data){
+					$('#layer').html(data);
+				}
+			});
+
+		}
+
+		function closeContent() {
+			$('.mw_layer').removeClass('open');
+		}
+
+		jQuery(function($) {
+			var layerWindow = $('.mw_layer');
+
+			// ESC Event
+			$(document).keydown(function(event) {
+				if(event.keyCode != 27)
+					return true;
+				if (layerWindow.hasClass('open')) {
+					layerWindow.removeClass('open');
+				}
+				return false;
+			});
+
+			// Hide Window
+			layerWindow.find('>.bg').mousedown(function(event) {
+				layerWindow.removeClass('open');
+				return false;
+			});
+		});
+	</script>
+
 </head>
 
 <body>
@@ -28,8 +71,8 @@
 
 		<c:forEach items="${articleList}" var="article">
 			<tr>
-				<td>${article.idx}</td>
-				<td><a href="count.do?idx=${article.idx}">${article.title}</a></td>
+				<td><a href="#layer" onclick="openContent('${article.idx}')">${article.idx}</a></td>
+				<td><a href="#layer" onclick="openContent('${article.idx}')">${article.title}</a></td>
 				<td>${article.user_id }</td>
 				<td>${article.reg_dttm}</td>
 				<td>${article.count}</td>
@@ -37,6 +80,27 @@
 		</c:forEach>
 
 	</table>
+	<input type="hidden" name="page" id="page" value="${page}">
+	<a href="#" onclick="loadNextPage()">더보기(Ajax)</a>
+
+	<script>
+		function loadNextPage() {
+			var page = $('#page').val();
+			page = parseInt(page);
+			page += 1;
+
+			$.ajax({
+				type:'post',
+				url:'ajaxList.do',
+				data:({page:page}),
+				success:function(data) {
+					$('table tr').filter(':gt(0)').remove();
+					$('table').append(data);
+					$('#page').val(page);
+				}
+			});
+		}
+	</script>
 
 	<c:if test="${page > 0}">
 		<a href="list.do?page=${page-1}">이전페이지</a>
@@ -64,5 +128,12 @@
 	<c:if test="${page+1 != pageTotal}">
 		<a href="list.do?page=${page+1}">다음페이지</a>
 	</c:if>
+
+	<!-- light box -->
+	<div class="mw_layer">
+		<div class="bg"></div>
+		<div id="layer"></div>
+	</div>
+
 </body>
 </html>
